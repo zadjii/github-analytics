@@ -16,6 +16,7 @@ def enable_vt_support():
         out_modes = ctypes.c_uint32(out_modes.value | 0x0004)
         ctypes.windll.kernel32.SetConsoleMode(hOut, out_modes)
 
+
 def datetime_to_string(dt):
     # type: (datetime.datetime) -> str
     return (dt.isoformat() + "Z") if dt is not None else None

@@ -20,4 +20,3 @@ class Issue(base):
     def __init__(self, api_obj):
         self.number = api_obj.number
         self.raw_data = json.dumps(api_obj._rawData)
-

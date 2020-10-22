@@ -6,7 +6,9 @@ Create a personal access token on github, and slam it in a file named `secrets.j
 
 ```json
 {
-    "GITHUB_API_TOKEN" : "your_token_here"
+    "GITHUB_API_TOKEN" : "your_token_here",
+
+    "REPO" : "microsoft/terminal"
 }
 ```
 

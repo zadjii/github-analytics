@@ -5,7 +5,7 @@
 
 # authentication stuff
 microsoft.bin
-secrets.json
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

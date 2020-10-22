@@ -13,6 +13,7 @@ import time
 SECRETS_FILE = "secrets.json"
 CONFIG_FILE = "config.json"
 
+
 def get_config():
     secrets = json.load(open(SECRETS_FILE, "r", encoding="utf-8"))
     config = json.load(open(CONFIG_FILE, "r", encoding="utf-8"))
@@ -21,12 +22,13 @@ def get_config():
     appconfig.update(config)
     return appconfig
 
+
 def get_github_token():
-    return get_config()['GITHUB_API_TOKEN']
+    return get_config()["GITHUB_API_TOKEN"]
+
 
 def get_github_repo():
-    return get_config()['REPO']
-
+    return get_config()["REPO"]
 
 
 class Instance(object):

@@ -5,8 +5,10 @@ import github
 from github import Github
 from common.Instance import get_github_token, get_github_repo
 
+
 def usage():
     pass
+
 
 def main(argv):
 
@@ -18,28 +20,28 @@ def main(argv):
 
     all_issues = []
 
-    result = { "issues": [], "links": [] }
+    result = {"issues": [], "links": []}
 
-    with open(input_filename, 'rb') as jsonfile:
+    with open(input_filename, "rb") as jsonfile:
         all_issues_dict = json.load(jsonfile)
         # for issue in all_issues_dict['issues']:
         #     gathered_issues.append( {'number': issue['number'], 'title': issue['title']} )
-        issues = all_issues_dict['issues']
+        issues = all_issues_dict["issues"]
 
-        graph_blobs=[]
+        graph_blobs = []
         for issue in issues:
             # issue = issues[0]
-            issue_number = issue['number']
+            issue_number = issue["number"]
             all_matches = []
-            comments = issue['comments']
+            comments = issue["comments"]
             # all_issues.append(issue_number)
             for comment in comments:
                 # comment = comments[0]
-                body = comment['body']
-                matches = re.findall(r'/dup((licate)|(e))?( of)? #(\d+)\s*', body)
+                body = comment["body"]
+                matches = re.findall(r"/dup((licate)|(e))?( of)? #(\d+)\s*", body)
                 # print(matches)
                 for match in matches:
-                    dupe_number=int(match[-1])
+                    dupe_number = int(match[-1])
                     all_matches.append(dupe_number)
                     all_issues.append(dupe_number)
                 # return
@@ -49,11 +51,11 @@ def main(argv):
                 all_issues.append(issue_number)
 
                 for m in all_matches:
-                    result["links"].append({ "source": issue_number, "target": m})
+                    result["links"].append({"source": issue_number, "target": m})
                     # graph_blobs.append(u'{{ "source": {}, "target": {} }}'.format(issue_number, m))
                 # print('{}: {}'.format(issue_number, all_matches))
 
-    issue_blobs=[]
+    issue_blobs = []
     set_of_issues = set(all_issues)
 
     # log into GH using token
@@ -74,7 +76,6 @@ def main(argv):
     # issues_string = ',\n'.join(issue_blobs)
     # print(u'"issues":[{}],'.format(issues_string))
 
-
     # links_string = ',\n'.join(graph_blobs)
     # print(u'"links":[{}]'.format(links_string))
     # # print(links_string)
@@ -84,5 +85,5 @@ def main(argv):
     # print(json.dumps(gathered_issues))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv)
