@@ -16,10 +16,10 @@ CONFIG_FILE = "config.json"
 
 def get_config():
     secrets = json.load(open(SECRETS_FILE, "r", encoding="utf-8"))
-    config = json.load(open(CONFIG_FILE, "r", encoding="utf-8"))
+    # config = json.load(open(CONFIG_FILE, "r", encoding="utf-8"))
     appconfig = {}
     appconfig.update(secrets)
-    appconfig.update(config)
+    # appconfig.update(config)
     return appconfig
 
 
