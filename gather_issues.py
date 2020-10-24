@@ -5,6 +5,7 @@ import github
 from github import Github
 from common.Instance import get_github_token, get_github_repo, Instance
 from models.Issue import Issue
+from models.Comment import Comment
 
 """
 This is a test script for caching an issue into our database.
@@ -80,13 +81,34 @@ def lookup_single_issue(instance, issue_number):
 
             issue_model = Issue(issue)
             db.session.add(issue_model)
+            # db.session.commit()
+            print("created new DB object for issue")
+
+            comments = issue.get_comments()
+            print(f"Issue has {comments.totalCount} comments")
+            for comment in comments:
+                api_id = comment.id
+                print(f'looking for comment {api_id}...')
+                comment_model = db.session.query(Comment).filter(Comment.api_id == api_id).first()
+                if comment_model is None:
+                    comment_model = Comment(issue, comment)
+                    db.session.add(comment_model)
+                    print(f'\tcreated comment object')
+                else:
+                    print(f'\tAready had this comment')
             db.session.commit()
-            print("created new DB object")
         except Exception as e:
             print(e)
+
     print(f"Found issue #{issue_number} in object with ID={issue_model.id}")
     # print(f'number={issue_model.number}')
-    print(f"\n{issue_model.raw_data}")
+    # print(f"\n{issue_model.raw_data}")
+    json_obj = json.loads(issue_model.raw_data)
+    title = json_obj["title"]
+    num = json_obj["number"]
+    num_comments = issue_model.comments.count()
+    print(f"#{num} {title} ({num_comments} comments)")
+
 
 
 def main(argv):

@@ -5,6 +5,7 @@ import github
 from github import Github
 from common.Instance import get_github_token, get_github_repo, Instance
 from models.Issue import Issue
+from models.Comment import Comment
 
 
 def usage():
@@ -16,7 +17,9 @@ def _print_issue(issue_model):
     json_obj = json.loads(issue_model.raw_data)
     title = json_obj["title"]
     num = json_obj["number"]
-    print(f"#{num} {title}")
+    num_comments = issue_model.comments.count()
+
+    print(f"#{num} {title} ({num_comments} comments)")
 
 
 def print_all(instance):
