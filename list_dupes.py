@@ -9,8 +9,8 @@ from models.Comment import Comment
 
 
 def usage():
-    print("python dump_issues.py ")
-    print("    Print out the title of a single or all issues")
+    print("python list_dupes.py ")
+    print("    <todo>")
 
 
 def _print_issue(issue_model):
@@ -18,21 +18,32 @@ def _print_issue(issue_model):
     title = json_obj["title"]
     num = json_obj["number"]
     num_comments = issue_model.comments.count()
-
-    duplicates = [other.number for other in issue_model.duplicates]
-    mentioned_by = [other.number for other in issue_model.mentioned_by]
-
-    duplicate_of_results = [other.number for other in issue_model.duplicate_of]
-    mentioned_issues_results = [other.number for other in issue_model.mentioned_issues]
-
     print(f"#{num} {title} ({num_comments} comments)")
-    # print(f"\tduplicates: {duplicates} ({issue_model.duplicates.count()} total)")
-    # print(f"\tmentioned_by: {mentioned_by} ({issue_model.mentioned_by.count()} total)")
-    print(f"\tduplicate_of: {duplicate_of_results}")
-    print(f"\tmentioned_issues: {mentioned_issues_results}")
+    related_issues = []
+    duplicate_of = []
 
-    print(f"\tduplicates: {duplicates}")
-    print(f"\tmentioned_by: {mentioned_by}")
+    def process_body(body):
+        # print(f'{body}')
+        strong_dupes = re.findall(r"/dup((licate)|(e))?( of)? #(\d+)\s*", body)
+        for match in strong_dupes:
+            dupe_number = int(match[-1])
+            duplicate_of.append(dupe_number)
+
+        mentioned_issues = re.findall(r"#(\d+)\s*", body)
+        # print(f"{mentioned_issues}")
+        for match in mentioned_issues:
+            mentioned_num = int(match)
+            related_issues.append(mentioned_num)
+
+    process_body(json_obj['body'])
+
+    for comment in issue_model.comments:
+        comment_json = json.loads(comment.raw_data)
+        body = comment_json['body']
+        process_body(body)
+
+    print(f'\tRelated to {list(set(related_issues))}')
+    print(f'\tDuplicate of {list(set(duplicate_of))}')
 
 
 
