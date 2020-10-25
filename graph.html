@@ -32,6 +32,8 @@
 
 </body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<!-- <script src="lib/d3-force-reuse-1.0.1/manyBodyReuse.js"></script> -->
+<script src="lib/d3-force-reuse.js"></script>
 <script
     src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -51,6 +53,11 @@
 
 
     var svg = d3.select("svg");
+
+    let window_width = $(window).width() - 64;
+    let window_height = $(window).height() - 64;
+    svg.attr("width", window_width);
+    svg.attr("height", window_height);
     var width = +svg.attr("width");
     var height = +svg.attr("height");
 
@@ -59,11 +66,11 @@
     let link_force = d3.forceLink()
         .id(function(d) { return d.number; })
         // .strength((link) => { return 1 / Math.min(count(link.source), count(link.target)); })
-        .strength(1.05)
+        // .strength(1.05)
         ;
 
-    let charge_force = d3.forceManyBody()
-        .strength(-5.5)
+    let charge_force = d3.forceManyBodyReuse()
+        // .strength(-5.5)
         ;
 
     var simulation = d3.forceSimulation()
@@ -287,22 +294,22 @@
         let filtered_issue = $('#filter_input').val();
         let should_prune_pairs = $('#should_prune_pairs').prop( "checked" );
 
-        add_metadata(all_graph_data.issues, all_graph_data.links);
+        add_metadata(all_graph_data.issues, all_graph_data.mentioned_issues);
 
         let filtered_issues = all_graph_data.issues;
         if (should_prune_pairs) {
-            filtered_issues = prune_pairs(filtered_issues, all_graph_data.links);
+            filtered_issues = prune_pairs(filtered_issues, all_graph_data.mentioned_issues);
         }
         console.log(filtered_issues);
 
-        let filtered_links = filter_unused_links(filtered_issues, all_graph_data.links);
+        let filtered_links = filter_unused_links(filtered_issues, all_graph_data.mentioned_issues);
 
         update_graph(filtered_issues, filtered_links);
-        update_table(all_graph_data.issues, all_graph_data.links);
+        update_table(all_graph_data.issues, all_graph_data.mentioned_issues);
     };
 
     console.log(`beginning load`);
-    d3.json("graph.json", function(error, data) {
+    d3.json("new_graph.json", function(error, data) {
         if (error) throw error;
 
         console.log(`loaded data`);
@@ -330,5 +337,7 @@
         d.fx = null;
         d.fy = null;
     }
+
+    $('#should_prune_pairs').change(()=>{ update(); });
 
 </script>

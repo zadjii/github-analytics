@@ -88,14 +88,16 @@ def lookup_single_issue(instance, issue_number):
             print(f"Issue has {comments.totalCount} comments")
             for comment in comments:
                 api_id = comment.id
-                print(f'looking for comment {api_id}...')
-                comment_model = db.session.query(Comment).filter(Comment.api_id == api_id).first()
+                print(f"looking for comment {api_id}...")
+                comment_model = (
+                    db.session.query(Comment).filter(Comment.api_id == api_id).first()
+                )
                 if comment_model is None:
                     comment_model = Comment(issue, comment)
                     db.session.add(comment_model)
-                    print(f'\tcreated comment object')
+                    print(f"\tcreated comment object")
                 else:
-                    print(f'\tAready had this comment')
+                    print(f"\tAready had this comment")
             db.session.commit()
         except Exception as e:
             print(e)
@@ -108,7 +110,6 @@ def lookup_single_issue(instance, issue_number):
     num = json_obj["number"]
     num_comments = issue_model.comments.count()
     print(f"#{num} {title} ({num_comments} comments)")
-
 
 
 def main(argv):

@@ -37,11 +37,11 @@ def _print_issue(db, issue_model):
             mentioned_num = int(match)
             related_issues.append(mentioned_num)
 
-    process_body(json_obj['body'])
+    process_body(json_obj["body"])
 
     for comment in issue_model.comments:
         comment_json = json.loads(comment.raw_data)
-        body = comment_json['body']
+        body = comment_json["body"]
         process_body(body)
 
     related_issues = list(set(related_issues))
@@ -60,9 +60,8 @@ def _print_issue(db, issue_model):
             issue_model.duplicate_of.append(other)
             db.session.add(other)
 
-    print(f'\tRelated to {list(set(related_issues))}')
-    print(f'\tDuplicate of {list(set(duplicate_of))}')
-
+    print(f"\tRelated to {list(set(related_issues))}")
+    print(f"\tDuplicate of {list(set(duplicate_of))}")
 
     duplicates = [other.number for other in issue_model.duplicates]
     mentioned_by = [other.number for other in issue_model.mentioned_by]
@@ -85,6 +84,7 @@ def print_range(instance, min_num, max_num):
             continue
         _print_issue(db, issue)
 
+
 def print_all(instance):
     db = instance.get_db()
 
@@ -101,7 +101,7 @@ def print_all(instance):
 
         db.session.add(issue)
         db.session.commit()
-        print(f'cleared issue #{issue.number}')
+        print(f"cleared issue #{issue.number}")
 
     for issue in db.session.query(Issue).order_by(Issue.number).all():
         _print_issue(db, issue)
@@ -121,8 +121,7 @@ def main(argv):
     instance = Instance()
     if len(argv) > 2:
         print_range(instance, int(argv[1]), int(argv[2]))
-
-    if len(argv) > 1:
+    elif len(argv) > 1:
         print_single(instance, int(argv[1]))
     else:
         print_all(instance)

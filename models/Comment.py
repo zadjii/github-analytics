@@ -17,7 +17,7 @@ class Comment(base):
     raw_data = Column(String)
     api_id = Column(Integer)
     issue_number = Column(Integer, ForeignKey("issue.number"))
-
+    body = Column(String)
 
     issue = relationship(
         "Issue",

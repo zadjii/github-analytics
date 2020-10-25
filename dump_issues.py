@@ -35,7 +35,6 @@ def _print_issue(issue_model):
     print(f"\tmentioned_by: {mentioned_by}")
 
 
-
 def print_all(instance):
     db = instance.get_db()
     for issue in db.session.query(Issue).order_by(Issue.number).all():

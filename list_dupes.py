@@ -35,16 +35,15 @@ def _print_issue(issue_model):
             mentioned_num = int(match)
             related_issues.append(mentioned_num)
 
-    process_body(json_obj['body'])
+    process_body(json_obj["body"])
 
     for comment in issue_model.comments:
         comment_json = json.loads(comment.raw_data)
-        body = comment_json['body']
+        body = comment_json["body"]
         process_body(body)
 
-    print(f'\tRelated to {list(set(related_issues))}')
-    print(f'\tDuplicate of {list(set(duplicate_of))}')
-
+    print(f"\tRelated to {list(set(related_issues))}")
+    print(f"\tDuplicate of {list(set(duplicate_of))}")
 
 
 def print_all(instance):

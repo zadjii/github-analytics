@@ -37,8 +37,17 @@ python -m http.server
 then navigate to localhost:8000/graphs.html
 
 
-
-
+## Attempt 2
+* Use `gather_all.cmd` to download all the issues into the database locally
+* Use `collect_dupes.py` to process issues to find all the dupes and mentions in
+  issues
+* Use `list_dupes.py` to just parse an issue's body to find dupes and mentions.
+  Relatively unimportant.
+* Use `dump_issues.py` to list info about an issue
+* Use `process_raw_data.py` to parse the issue's json into the database (body,
+  title, state)
+* Use `database_to_graph.py` to dump the data from the database to json in the
+  json format we want.
 
 
 ## Contributing
