@@ -62,4 +62,11 @@ directory to your path. For me, this was done with:
 
 ```
 set PATH=%PATH%;%localappdata%\Packages\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\LocalCache\local-packages\Python37\Scripts
+
+```
+
+On a newer machine:
+
+```
+set PATH=%PATH%;%localappdata%\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts
 ```

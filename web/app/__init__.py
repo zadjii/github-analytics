@@ -1,20 +1,28 @@
-__author__ = 'Mike'
+__author__ = "Mike"
 
 import os, sys
 
-from flask import Flask, render_template, session, send_from_directory,\
-    redirect, url_for
+from flask import (
+    Flask,
+    render_template,
+    session,
+    send_from_directory,
+    redirect,
+    url_for,
+)
 from flask_sqlalchemy import SQLAlchemy
+
 # from werkzeug.contrib.cache import SimpleCache
 # from flask_marshmallow import Marshmallow
 
 # from config import basedir
 
-app = Flask(__name__
-            # , static_url_path='/static'
-            # , static_url_path=''
-            # , static_folder='/app/static'
-            )
+app = Flask(
+    __name__
+    # , static_url_path='/static'
+    # , static_url_path=''
+    # , static_folder='/app/static'
+)
 # app.config.from_object('config')
 
 db = SQLAlchemy(app)
@@ -51,14 +59,11 @@ app.register_blueprint(base_views.base)
 ################################################################################
 
 
-
-
 ################################################################################
 # Other assorted global nonsense                                               #
 ################################################################################
 def nl2br(value):
-     return value.replace('\n','<br>\n')
-
-app.jinja_env.filters['nl2br'] = nl2br
+    return value.replace("\n", "<br>\n")
 
 
+app.jinja_env.filters["nl2br"] = nl2br

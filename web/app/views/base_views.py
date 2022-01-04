@@ -1,13 +1,27 @@
 ################### These ALL need to be imported EVRYWHERE ###################
 import os
-from flask import Blueprint, render_template, session, redirect, url_for, \
-    request, flash, g, jsonify, abort, make_response, Flask, send_from_directory
-from flask_login import login_user, logout_user, current_user, \
-    login_required
+from flask import (
+    Blueprint,
+    render_template,
+    session,
+    redirect,
+    url_for,
+    request,
+    flash,
+    g,
+    jsonify,
+    abort,
+    make_response,
+    Flask,
+    send_from_directory,
+)
+from flask_login import login_user, logout_user, current_user, login_required
+
 # from werkzeug import secure_filename
 # from flask_wtf.file import FileField
 
 from app import app
+
 # from app import login_manager
 # from ..forms import LoginForm, PostForm
 # from ..models.User import User
@@ -18,7 +32,7 @@ from app import app
 #     check_password_hash
 # from sqlalchemy import or_
 ################################################################################
-base = Blueprint('base', __name__)
+base = Blueprint("base", __name__)
 ################################################################################
 
 # @base.before_request
@@ -36,17 +50,23 @@ base = Blueprint('base', __name__)
 
 ################################################################################
 ################################################################################
-@base.route('/')
+@base.route("/")
 @base.route("/index")
 @base.route("/homepage")
 def homepage():
-    return render_template('index.html.tmpl')
+    return render_template("index.html.tmpl")
+
+
 ################################################################################
 @base.route("/graph")
 def graph():
-    return render_template('graph.html.tmpl')
+    return render_template("graph.html.tmpl")
+
+
 ################################################################################
 @base.route("/table")
 def table():
-    return render_template('table.html.tmpl')
+    return render_template("table.html.tmpl")
+
+
 ################################################################################

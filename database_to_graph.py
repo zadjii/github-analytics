@@ -24,7 +24,6 @@ def do_range(instance, min_num=None, max_num=None):
         if max_num is not None and issue.number > max_num:
             continue
 
-
         duplicates = [other.number for other in issue.duplicates]
         mentioned_by = [other.number for other in issue.mentioned_by]
         # print(f"\tduplicates: {duplicates}")
@@ -39,19 +38,29 @@ def do_range(instance, min_num=None, max_num=None):
             "title": issue.title,
             "body": issue.body,
             "state": issue.state,
-
             "duplicates": duplicates,
             "mentioned_by": mentioned_by,
             "duplicate_of": duplicate_of,
             "mentioned_issues": mentioned_issues,
         }
-        result['issues'].append(issue_dict)
-        [result['duplicate_of'].append({'source': issue.number, 'target': other.number}) for other in issue.duplicate_of]
-        [result['mentioned_issues'].append({'source': issue.number, 'target': other.number}) for other in issue.mentioned_issues]
+        result["issues"].append(issue_dict)
+        [
+            result["duplicate_of"].append(
+                {"source": issue.number, "target": other.number}
+            )
+            for other in issue.duplicate_of
+        ]
+        [
+            result["mentioned_issues"].append(
+                {"source": issue.number, "target": other.number}
+            )
+            for other in issue.mentioned_issues
+        ]
         # print(f"Processed #{issue_model.number}")
         # print(json.dumps(issue_dict), indent=2)
 
     print(json.dumps(result, indent=2))
+
 
 def main(argv):
 
