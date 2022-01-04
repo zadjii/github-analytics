@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Analysis</title>
+    <style type="text/css">
+        h2 {
+            margin-bottom: 0px;
+        }
+        .post code {
+            background-color: #dddddd;
+            border-radius: 2px;
+            border: solid;
+            border-width: 1px;
+            padding-left: 2px;
+            padding-right: 2px;
+            border-color: #dddddd;
+        }
+        .title-row {
+            background: #8f8fff;
+            color: : #ffffff;
+            padding: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/open-iconic-bootstrap.css') }}">
+</head>
+<body>
+
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">GitHub Analysis Tools</a>
+        </button>
+
+            <div class="d-flex flex-column align-items-start w-100">
+                <div class="collapse navbar-collapse ml-lg-0 ml-3" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link py-0" href="{{url_for('base.graph')}}">Graph</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link py-0" href="{{url_for('base.table')}}">Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse ml-lg-0 ml-3" id="navbarCollapse">
+                    {% block nav_row_1 %}
+                    {% endblock %}
+                </div>
+                <div class="collapse navbar-collapse ml-lg-0 ml-3" id="navbarCollapse">
+                    {% block nav_row_2 %}
+                    {% endblock %}
+                </div>
+                <div class="collapse navbar-collapse ml-lg-0 ml-3" id="navbarCollapse">
+                    {% block nav_row_3 %}
+                    {% endblock %}
+                </div>
+            </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+{# Libraries #}
+<script type="text/javascript" src="{{url_for('static', filename='js/lib/bootstrap/bootstrap.min.js')}}"></script>
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="{{url_for('static', filename='lib/d3-force-reuse.js')}}"></script>
+
+{# Data #}
+
+{# Other global helpers #}
+<script type="text/javascript" src="{{url_for('static', filename='built/js/logging_utils.js')}}"></script>
+
+{# Per-page JS goes in this block #}
+{% block post_body_js %}
+{% endblock %}
+
+</html>
+

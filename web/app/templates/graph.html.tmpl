@@ -1,0 +1,84 @@
+{% extends "base.tmpl" %}
+{% block nav_row_1 %}
+<div id="range-row">
+    <span>
+    </span>
+</div>
+{% endblock %}
+{% block nav_row_2 %}
+
+{% endblock %}
+{% block nav_row_3 %}
+<div id="error-row" class="error-row" style="display:none">
+</div>
+{% endblock %}
+{% block content %}
+
+<style type="text/css">
+    body {
+        padding-top: 108px;
+    }
+    .years-row {
+        background: #afafff;
+        /*color: : #ffffff;*/
+        padding: 4px;
+    }
+    .error-row {
+        background: #ffafaf;
+        /*color: : #ffffff;*/
+        padding: 4px;
+    }
+    .cat-expando {
+        color: #888;
+        margin: 4px;
+    }
+    .cat-content {
+        /*background: #efefef;*/
+        /*border: #ccc solid;*/
+    }
+    .cat-root {
+        /*background: #efefef;*/
+        /*border: #ccc solid;*/
+        border: #ccc solid 2px;
+        border-top-width: 0px;
+    }
+    .cat-title {
+        border: #ccc solid 0px;
+        border-top-width: 2px;
+        background: #d8d8d8;
+    }
+    .cell-right {
+        border-style: solid;
+        border-width: 1px;
+        padding: 4px;
+        margin: 0px;
+        text-align: right;
+    }
+    .cell-left {
+        border-style: solid;
+        border-width: 1px;
+        padding: 4px;
+        margin: 0px;
+    }
+</style>
+
+
+<div class="row ml-4 mr-4" >
+    <div class="col-lg-12">
+        <div id="my-categories-graph"> </div>
+    </div>
+    <div class="col-lg-12">
+        <div id="my-graph"> </div>
+    </div>
+    <div class="col-lg-12">
+        <div id="my-diffs-graph"> </div>
+    </div>
+</div>
+
+<div id="my-log">
+</div>
+{% endblock %}
+
+{% block post_body_js %}
+<script type="text/javascript" src="{{url_for('static', filename='built/src/graph.js')}}"></script>
+{% endblock %}
